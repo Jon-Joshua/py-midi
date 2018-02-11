@@ -17,5 +17,6 @@ def _process(file, event, track):
     elif event == 0xE:
         pass
 
+
 def _read_byte(file):
     return int(file.read(1).hex(), 16)

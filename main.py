@@ -4,7 +4,7 @@ file = open('midi n shit/runescape-sea shanty 2.mid', 'rb')
 midi = Midi()
 midi_file = midi.decode(file)
 
-print(midi_file.tracks[0].title)
+print(midi_file.tracks[1].title)
 
 # print(midi.header.getlength())
 
