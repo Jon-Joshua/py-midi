@@ -1,7 +1,10 @@
 from midi import Midi
 
-file = open('runescape-sea shanty 2.mid', 'rb')
-midi = Midi(file)
+file = open('midi n shit/runescape-sea shanty 2.mid', 'rb')
+midi = Midi()
+midi_file = midi.decode(file)
+
+print(midi_file.tracks[0].title)
 
 # print(midi.header.getlength())
 
