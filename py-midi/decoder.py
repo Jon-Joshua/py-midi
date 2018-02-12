@@ -12,23 +12,19 @@ class MidiDecoder:
 
 
     def decode(self, file):
-        self.file = file
         byte_s = io.BytesIO(file.read())
 
         format, tracks, division = self._read_header(byte_s)
 
-        self.midi_file = MidiFile(format, division)
+        midi_file = MidiFile(format, division)
 
         tracks_l = self._get_tracks(file, tracks)
 
-        if format == 0:
-            pass
-        else:
-            for x in tracks_l:
-                track = self._read_track(x)
-                self.midi_file.tracks.append(track)
+        for x in tracks_l:
+            track = self._read_track(x)
+            midi_file.tracks.append(track)
         
-        return self.midi_file
+        return midi_file
 
 
     def _read_header(self, file):
@@ -42,7 +38,7 @@ class MidiDecoder:
 
 
     """ Gets track from 'MTrk' start to 0xFF 0x2F 0x00 end. 
-        Ugly as hell...
+        Ugly as hell... Need to change this as soon as I can be bothered.
     """
     def _get_tracks(self, file, tracks):
 

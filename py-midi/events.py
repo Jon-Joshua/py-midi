@@ -38,7 +38,6 @@ def get_event_name(event, type):
 
 
 def get_event_len(event):
-    # event_list = 
     for e in midi_event:
         if e['event'] == event:
             return e['length']

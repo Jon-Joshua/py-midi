@@ -1,6 +1,6 @@
 # py-midi
 
-Work in progress.
+Work in progress as a learning experience.
 
 Example:
 
