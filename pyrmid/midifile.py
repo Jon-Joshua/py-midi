@@ -1,4 +1,4 @@
-import events
+import pyrmid.events as events
 
 class MidiTrack:
 

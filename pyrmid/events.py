@@ -30,6 +30,57 @@ meta_event = [
 ]
 
 
+class Event:
+    note_channel = None
+
+
+class NoteOff(Event):
+    byte = 0x8
+    name = 'note_off'
+    note_number = None
+    note_velocity = None
+
+
+class NoteOn(Event):
+    byte = 0x9
+    name = 'note_on'
+    note_number = None
+    note_velocity = None
+
+
+class NoteAftertouch(Event):
+    byte = 0xA
+    name = 'note_aftertouch'
+    note_number = None
+    aftertouch_value = None
+
+
+class Controller(Event):
+    byte = 0xB
+    name = 'controller'
+    controller_number = None
+    controller_value = None
+
+
+class ProgramChange(Event):
+    byte = 0xC
+    name = 'program_change'
+    program_number = None
+
+
+class ChannelAftertouch(Event):
+    byte = 0xD
+    name = 'channel_aftertouch'
+    aftertouch_value = None
+
+
+class PitchBend(Event):
+    byte = 0xE
+    name = 'pitch_bend'
+    pitch_lsb = None
+    pitch_msb = None
+
+
 def get_event_name(event, type):
     if type == MIDI_EVENT:
         for e in midi_event:

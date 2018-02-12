@@ -1,17 +1,17 @@
 import struct
-from midifile import MidiFile, MidiTrack, MidiEvent
-import events
 import io
-import midiutil
+from pyrmid.midifile import MidiFile, MidiTrack, MidiEvent
+import pyrmid.events as events
+import pyrmid.midiutil as midiutil
 
-class MidiDecoder:
+class Pyrmid:
 
     def __init__(self):
         self.running_event = None
         self.running_status = False
 
 
-    def decode(self, file):
+    def read(self, file):
         byte_s = io.BytesIO(file.read())
 
         format, tracks, division = self._read_header(byte_s)
