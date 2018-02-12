@@ -1,7 +1,4 @@
-import sys
-sys.path.append(b'C:\Users\Jon\Documents\Projects\py-midi\py-midi')
-
-from main.py-midi.decoder import MidiDecoder
+from py-midi.decoder import MidiDecoder
 
 
 # file = open('runescape-sea shanty 2.mid', 'rb')
