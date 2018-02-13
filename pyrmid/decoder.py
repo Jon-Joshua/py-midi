@@ -6,19 +6,17 @@ import pyrmid.midiutil as midiutil
 
 class Pyrmid:
 
-    def __init__(self):
+    def __init__(self, file):
+        self.file = file
         self.running_event = None
         self.running_status = False
 
 
-    def read(self, file):
-        byte_s = io.BytesIO(file.read())
-
+    def read(self):
+        byte_s = io.BytesIO(self.file.read())
         format, tracks, division = self._read_header(byte_s)
-
         midi_file = MidiFile(format, division)
-
-        tracks_l = self._get_tracks(file, tracks)
+        tracks_l = self._get_tracks(self.file, tracks)
 
         for x in tracks_l:
             track = self._read_track(x)
@@ -107,8 +105,8 @@ class Pyrmid:
         return track
 
 
-    def _decode_midi_event(self, file, val, delta):
-        event, channel = val >> 4, val & 0xF
+    def _decode_midi_event(self, file, value, delta):
+        event, channel = value >> 4, value & 0xF
 
         # List of valid events
         event_l = [ 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE ]
@@ -133,11 +131,11 @@ class Pyrmid:
 
 
     def _decode_meta_event(self, file, track, delta):
-        meta_type = midiutil._read_byte_i(file)
+        meta_event = midiutil._read_byte_i(file)
         meta_length = midiutil._read_vlenb(file)
         meta_data = None
 
-        ret_type = events.get_track_event_type(meta_type)
+        ret_type = events.get_track_event_type(meta_event)
 
         if ret_type == 'string':
             meta_data = midiutil._read_bytes_s(file, meta_length)
@@ -146,4 +144,4 @@ class Pyrmid:
         elif ret_type == None:
             meta_data = None
 
-        return MidiEvent(delta, meta_type, track, meta_data, events.META_EVENT)
+        return MidiEvent(delta, meta_event, track, meta_data, events.META_EVENT)

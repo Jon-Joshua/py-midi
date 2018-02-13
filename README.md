@@ -1,51 +1,61 @@
-# py-midi
+# pyrmid
 
-Work in progress as a learning experience.
+Work in progress do not expect much.
 
-Example:
+Parses MIDI files and returns a list of tracks with events processed into Delta, Event, Modifier and Message.
 
+## Todo:
+```
+- Fix header parsing.
+- Processing track meta events.
+```
+
+## Example
+
+### Code
 ```python
-from decoder import MidiDecoder
+from pyrmid import Pyrmid
 
 file = open('test.mid', 'rb')
-midi = MidiDecoder()
-midi_file = midi.decode(file)
+midi = Pyrmid(file)
+midi_file = midi.read()
 
+print('{:<6} {:<6} {:<7} {:10} {:<6}'.format('Delta', 'Event', 'Channel', 'Message')
 for x in midi.tracks[1].events:
-	print('{: <5} {: <5} {: <6} {}    {}'.format(x.delta, hex(x.event), x.channel, x.message, x.get_name()))
-
+	print('{:<6} {:<6} {:<7} {:10} {:<6}'.format(x.delta, hex(x.event), x.channel, repr(x.message)))
 ```
 
-Result:
+### Result
 
 ```
-0     0x9   0      [72, 64]    note_on
-120   0x8   0      [72, 64]    note_off
-0     0x9   0      [72, 64]    note_on
-120   0x8   0      [72, 64]    note_off
-0     0x9   0      [79, 64]    note_on
-120   0x8   0      [79, 64]    note_off
-0     0x9   0      [79, 64]    note_on
-120   0x8   0      [79, 64]    note_off
-0     0x9   0      [81, 64]    note_on
-120   0x8   0      [81, 64]    note_off
-0     0x9   0      [81, 64]    note_on
-120   0x8   0      [81, 64]    note_off
-0     0x9   0      [79, 64]    note_on
-241   0x8   0      [79, 64]    note_off
-0     0x9   0      [77, 64]    note_on
-120   0x8   0      [77, 64]    note_off
-0     0x9   0      [77, 64]    note_on
-120   0x8   0      [77, 64]    note_off
-0     0x9   0      [76, 64]    note_on
-120   0x8   0      [76, 64]    note_off
-0     0x9   0      [76, 64]    note_on
-120   0x8   0      [76, 64]    note_off
-0     0x9   0      [74, 64]    note_on
-120   0x8   0      [74, 64]    note_off
-0     0x9   0      [74, 64]    note_on
-120   0x8   0      [74, 64]    note_off
-0     0x9   0      [72, 64]    note_on
-241   0x8   0      [72, 64]    note_off
-0     0xff  47     None    None
+Delta  Event  Channel Message
+0      0x9    0       [72, 64]
+120    0x8    0       [72, 64]
+0      0x9    0       [72, 64]
+120    0x8    0       [72, 64]
+0      0x9    0       [79, 64]
+120    0x8    0       [79, 64]
+0      0x9    0       [79, 64]
+120    0x8    0       [79, 64]
+0      0x9    0       [81, 64]
+120    0x8    0       [81, 64]
+0      0x9    0       [81, 64]
+120    0x8    0       [81, 64]
+0      0x9    0       [79, 64]
+241    0x8    0       [79, 64]
+0      0x9    0       [77, 64]
+120    0x8    0       [77, 64]
+0      0x9    0       [77, 64]
+120    0x8    0       [77, 64]
+0      0x9    0       [76, 64]
+120    0x8    0       [76, 64]
+0      0x9    0       [76, 64]
+120    0x8    0       [76, 64]
+0      0x9    0       [74, 64]
+120    0x8    0       [74, 64]
+0      0x9    0       [74, 64]
+120    0x8    0       [74, 64]
+0      0x9    0       [72, 64]
+241    0x8    0       [72, 64]
+0      0xff   47      None
 ```
